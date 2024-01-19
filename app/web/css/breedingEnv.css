@@ -1,0 +1,49 @@
+/* 増減ボタン */
+
+.container {
+    width: 300px;
+    margin: 200px auto 1;
+  }
+  
+  .field {
+    display: flex;
+  }
+  
+  .inputtext {
+    color:rgba(43, 32, 32, 0.76) ;
+    font-size: 18px;
+    border-left: 0;
+    border-right: 0;
+    width: 80px;
+    line-height: 3rem;
+    text-align: center;
+    border: 1px solid #D7DBDD;
+    padding: 0 0px;
+  }
+  
+  .button02 {
+    color:rgba(43, 32, 32, 0.76) ;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: white;
+    border: 1px solid #D7DBDD;
+    border-radius:0;
+    outline: 0;
+  }
+  #down1{
+    border-radius:20px 0 0 20px;
+  }
+  #up1{
+    border-radius:0 20px 20px 0;
+  }
+  #down2{
+    border-radius:20px 0 0 20px;
+  }
+  #up2{
+    border-radius:0 20px 20px 0;
+  }  
+  .resetbtn {
+    margin: 20px 0 0 65px;
+  }
+  

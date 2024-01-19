@@ -1,0 +1,5 @@
+Flask
+flask-restful
+# torch
+# torchvision
+# Pillow

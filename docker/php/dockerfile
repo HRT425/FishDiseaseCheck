@@ -1,0 +1,9 @@
+# phpのバージョン8でapacheが付属しているイメージを利用する
+FROM php:8-apache
+
+# パッケージをインストール
+RUN apt update \
+    && docker-php-ext-install pdo_mysql
+
+# appフォルダ内のファイルをコピー
+COPY ./app var/www/html

@@ -1,0 +1,88 @@
+/* body要素内の文字列をセンタリング */
+body {
+    text-align: center;
+  }
+  
+  /* <div class="main">～</div>全体をセンタリング */
+  .main {
+    margin: 0 auto;
+  }
+  
+  /* 未訪問リンクの文字色を黒にし、アンダーラインがつかないようにする */
+  a:link{
+    color: #000000;
+    text-decoration: none;
+  }
+  
+  /* 訪問済みのリンクの文字色を黒にし、アンダーラインがつかないようにする */
+  a:visited{
+    color: #000000;
+    text-decoration: none;
+  }
+  
+  /* リンクにカーソルが乗った場合の文字色をgrayにし、アンダーラインがつかないようにする */
+  a:hover{
+    color: #808080;
+    text-decoration: none;
+  }
+  
+  /* リンクがクリックされてから離されるまでの文字色をsilverにし、アンダーラインがつかないようにする */
+  a:active{
+    color: #c0c0c0;
+    text-decoration: none;
+  }
+  
+  /* ヘッダー部のナビゲーションメニューを横一列に表示する */
+  .navi li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+  }
+
+  /* エラーメッセージの文字色を赤にする */
+.error_class {
+    color: #ff0000;
+  }
+
+  /* テーブルを常に画面中心に配置 */
+table {
+  margin: 0px auto 20px;
+}
+
+/* テーブルの枠線を灰色の1pxの直線とし、1本にまとめる */
+table, th, td {
+  border: 1px solid #C0C0C0;
+  border-collapse: collapse;
+}
+
+/* セル内の上下の余白を3px、左右の余白を10pxに */
+th, td {
+  padding: 3px 10px 3px 10px;
+}
+
+/* セル内のデータを右詰め表示 */
+.td_right {
+  text-align: right;
+}
+
+/* セル内のデータをセンター表示 */
+.td_center {
+  text-align: center;
+}
+
+/* タイトルの背景グラデーション,文字の大きさを設定 */
+h2 {
+  padding: 1rem 3rem;
+  -webkit-transform: skew(-15deg);
+  transform: skew(-15deg);
+  color: #fff;
+  background-image: -webkit-gradient(linear, left top, right top, from(#209cff), to(#68e0cf));
+  background-image: -webkit-linear-gradient(left, #209cff 0%, #68e0cf 100%);
+  background-image: linear-gradient(to right, #209cff 0%, #68e0cf 100%);
+  font-size: 50px;
+}
+
+/* Webサイトの背景色を設定 */
+body {
+  background-color:  #e0ffff; 
+}
