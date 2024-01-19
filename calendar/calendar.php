@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/calendar_product.php';
 // タイムゾーンを設定
 date_default_timezone_set('Asia/Tokyo');
 
@@ -127,9 +128,31 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
             ?>
         </table>
     </div>
-</body>
-<fotter>
+    <fotter>
+        <div id="footer-content">
+            <!-- ここに詳細情報を表示 -->
+        </div>
+    </fotter>
+    <script>
+        // カレンダーの日付をクリックしたときに詳細情報を表示する関数
+        function showDetailInfo(date, selectedDate) {
+            // Ajaxを使用してサーバーから詳細情報を取得し、フッターに表示する
+            // 以下は例としてダミーデータを表示するコード
+            var dummyDetailInfo = "詳細情報：ダミーデータ";
+            document.getElementById("footer-content").innerHTML = dummyDetailInfo;
+        }
 
-</fotter>
+        // すべての日付リンクに対してクリックイベントを追加
+        var dateLinks = document.querySelectorAll('td a');
+        dateLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                var date = link.getAttribute('href').split('=')[1];
+                var selectedDate = link.getAttribute('href').split('=')[2];
+                showDetailInfo(date, selectedDate);
+            });
+        });
+    </script>
+</body>
 
 </html>
