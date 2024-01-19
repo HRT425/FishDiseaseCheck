@@ -1,0 +1,25 @@
+#area{
+    height: 150px;
+    width: 150px;
+    font-size: 80px;
+    border-radius: 30px;
+    border-color:rgba(77, 77, 77, 0.76);
+    
+
+}
+.main_content_area_text{
+    color:rgba(77, 77, 77, 0.76);
+}
+#content_btn{
+    height: 30px;
+    border-radius: 30px;
+    background-color: rgba(63, 157, 228, 0.76);
+    color:rgba(255, 255, 255, 0.76) ;
+    border: none;
+}
+.content_text{
+    color:rgba(77, 77, 77, 0.76);
+}
+.footer_content{
+    bottom: 0;
+}
