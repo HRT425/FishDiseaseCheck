@@ -1,0 +1,68 @@
+nav{
+    display:flex;
+    margin:auto;
+    justify-content: center;    
+}
+h1{
+    justify-content: center;
+    vertical-align:middle;
+    font-size: 40px;
+}
+ul{
+    display: -webkit-flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 100px;
+}
+li{
+    margin:auto;
+    list-style:none;
+    display: block;
+	text-align: right;
+}
+button{
+    Width:77px;
+    Height:40px;
+    border-radius:6px;
+    Padding: 8px, 12px, 8px, 12px;
+    Gap: 10px;
+}
+.sign-button{
+    border:none;
+    background-color: #2D3648;
+    color:aliceblue;
+}
+.login-button{
+    background-color:aliceblue;
+    color: #2D3648;
+    border:solid;
+    border-color:#2D3648;
+}
+
+/*ボタンを中央に配置*/
+.center-buttons{
+    text-align:center;
+}
+footer{
+    color:aliceblue;
+    text-align:center;
+
+    background-color:#2D3648;
+    border: 1px solid #D7DBDD;
+    bottom: 0; /*下に固定*/
+}
+.contents01{
+    display:flex;
+    border: 2px solid #2D3648;
+    border-radius:20px;
+}
+img{
+    object-fit: cover;
+}
+.img2{
+    margin-left: auto;
+    border-radius:0 18px 18px 0;
+}
+.img1{
+    border-radius: 18px 0 0 18px;
+}

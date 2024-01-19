@@ -1,0 +1,15 @@
+# pythonのバージョン3.10を利用する
+FROM python:3.10
+
+# 作業ディレクトリをappに設定
+WORKDIR /app
+
+# appフォルダ内のファイルをAIにコピー
+ADD . /app
+
+# requirements.txtに書かれたライブラリをインストール
+RUN pip install --no-cache-dir -r ./docker/python/requirements.txt
+
+# 起動時にapi.pyを実行
+CMD ["python", "AI/api.py"]
+
