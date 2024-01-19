@@ -24,7 +24,7 @@ create table aqua.users (
     password char(60) not null,
     created_at datetime not null default current_timestamp,
     update_at datetime not null default current_timestamp on update current_timestamp,
-    primary key (userID),
+    primary key (userID)
 );
 
 -- tableがあるなら削除
@@ -39,5 +39,5 @@ create table aqua.condition (
     userID char(36) not null,
     created_at datetime not null default current_timestamp,
     primary key (conditionID),
-    foreign key(userID) references users(userID),
+    foreign key(userID) references users(userID)
 );
