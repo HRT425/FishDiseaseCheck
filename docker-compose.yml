@@ -1,0 +1,138 @@
+version: '3.7'
+
+services:
+
+  # Webアプリ
+  php:
+    # コンテナの名前
+    container_name: php
+    # dockerfileの場所
+    build:
+      context: .
+      dockerfile: docker/php/dockerfile
+    # ポート
+    ports:
+      - "8080:80"
+    # ローカルPCとコンテナ間でディレクトリをバインド(同期)
+    volumes:
+      - ./app:/var/www/html
+    # 利用するネットワーク
+    networks:
+      - php-mysql-networks
+    # 指定したサービスの後にコンテナを起動
+    depends_on:
+      mysql:
+        condition: service_healthy
+  
+  # AI
+  python:
+    # コンテナの名前
+    container_name: python
+    # dockerfileの場所
+    build:
+      context: .
+      dockerfile: docker/python/dockerfile
+    # ポート
+    ports:
+      - 5001:80
+    # ローカルPCとコンテナ間でディレクトリをバインド
+    volumes:
+      - ./app:/app
+    # コンテナを閉じない
+    tty: true
+    # 利用するネットワーク
+    networks:
+      - php-mysql-networks
+    # 指定したサービスの後にコンテナを起動
+    depends_on:
+      - mysql
+  
+  # データベース
+  mysql:
+    # イメージ
+    image: mysql:8.0
+    # コンテナの名前
+    container_name: mysql
+    # ポート
+    ports:
+      - "3306:3306"
+    # 環境設定
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    # 動いているか確認
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "MYSQL_USER", "-p$MYSQL_ROOT_PASSWORD"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    # 利用するボリューム
+    volumes:
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
+    # 利用するネットワーク
+    networks:
+      - php-mysql-networks
+      - schemaspy-sample
+  
+  # データベース確認用
+  phpmyadmin:
+    # イメージ
+    image: phpmyadmin
+    # コンテナの名前
+    container_name: phpmyadmin
+    # ポート
+    ports:
+       - "4040:80"
+    # 環境設定
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=${PMA_HOSTS}
+      - PMA_USER=${PMA_USER}
+      - PMA_PASSWORD=${PMA_PASSWORD}
+    # ネットワーク
+    networks:
+      - php-mysql-networks
+    # 指定したサービスの後にコンテナを起動
+    depends_on:
+      mysql:
+          condition: service_healthy
+  
+  spy:
+    container_name: schemaspy
+    build:
+      context: .
+      dockerfile: ./docker/Schemaspy/Dockerfile
+    volumes:
+      - ./database-configuration:/database-configuration
+      - ./docker/SchemaSpy/config/schemaspy.properties:/./app/schemaspy.properties
+    command: "java -jar ./drivers/schemaspy.jar"
+    networks:
+      - schemaspy-sample
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  
+  nginx_schemaspy:
+    image: nginx
+    container_name: "nginx_schemaspy"
+    depends_on:
+      spy:
+        condition: service_completed_successfully
+    ports:
+      - "3030:80"
+    volumes:
+      - ./database-configuration:/usr/share/nginx/html:ro
+
+# ボリューム
+volumes:
+  mysql-data:
+
+# ネットワーク
+networks:
+  php-mysql-networks:
+  schemaspy-sample:
