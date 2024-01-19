@@ -1,0 +1,40 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100);
+body {
+  font-family: roboto;
+  text-align: center;
+  color: #555;
+}
+a { 
+  color: #555;
+}
+h1 {
+  margin: 40px;
+}
+label {
+  font-weight: 100;
+  margin-right: 20px;
+  display: inline-block;
+  font-size: 15px;
+  width: 90px;
+  line-height: 40px;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #999;
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 45px #969696 inset;
+  transition: 200ms all;
+  cursor: pointer;
+}
+input[type="radio"] { display: none; }
+input[type="radio"]:checked + label {
+  box-shadow: 0 0 0 -1px #7abfff inset;
+  color: #FFF;
+  background: #7abfff;
+  border-color: #7abfff;
+}
+p {
+  font-weight: 300;
+  margin: 50px auto;
+  max-width: 320px;
+}
