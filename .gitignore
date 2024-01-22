@@ -1,5 +1,4 @@
 .env
-fine_tuned_model.pth
 __pycache__/
 database-configuration/
 docker/SchemaSpy/config/
