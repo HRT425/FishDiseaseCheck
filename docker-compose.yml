@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   # Webアプリ
-  php:
+  web-app:
     # コンテナの名前
     container_name: php
     # dockerfileの場所
@@ -21,11 +21,11 @@ services:
       - php-mysql-networks
     # 指定したサービスの後にコンテナを起動
     depends_on:
-      mysql:
+      db:
         condition: service_healthy
   
   # AI
-  python:
+  ai-api:
     # コンテナの名前
     container_name: python
     # dockerfileの場所
@@ -45,10 +45,10 @@ services:
       - php-mysql-networks
     # 指定したサービスの後にコンテナを起動
     depends_on:
-      - mysql
+      - db
   
   # データベース
-  mysql:
+  db:
     # イメージ
     image: mysql:8.0
     # コンテナの名前
@@ -98,7 +98,7 @@ services:
       - php-mysql-networks
     # 指定したサービスの後にコンテナを起動
     depends_on:
-      mysql:
+      db:
           condition: service_healthy
   
   spy:
@@ -113,7 +113,7 @@ services:
     networks:
       - schemaspy-sample
     depends_on:
-      mysql:
+      db:
         condition: service_healthy
 
   
