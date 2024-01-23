@@ -9,7 +9,7 @@ class User extends DbData
     // ログイン認証処理
     public function authUser($userEmail, $password): ?array
     {
-        $sql = "select userId, userName, password from users where userEmail = ?";   // SQL文を定義
+        $sql = "select userID, userName, password from users where userEmail = ?";   // SQL文を定義
         $stmt = $this->query($sql, [$userEmail]); // DbDataクラスのquery()メソッドを呼び出す
         $result = $stmt->fetch();   // fetch()メソッドでデータを取り出す
 
@@ -18,7 +18,7 @@ class User extends DbData
         }
 
         if (password_verify($password, $result['password'])) {
-            return [$result['userId'], $result['userName']];
+            return [$result['userID'], $result['userName']];
         } else {
             return [null, null];
         }
@@ -38,14 +38,14 @@ class User extends DbData
                 exit();
             }
             // uniqidを作成
-            $userId = (new UUID)->createUUid();
+            $userID = (new UUID)->createUUid();
             // パスワードハッシュ化
             $password = password_hash($password, PASSWORD_BCRYPT);
 
-            $sql = "insert into users(userId, userName, userEmail, password) values(?, ?, ?, ?)";
-            $result = $this->exec($sql, [$userId, $userName, $userEmail, $password]);
+            $sql = "insert into users(userID, userName, userEmail, password) values(?, ?, ?, ?)";
+            $result = $this->exec($sql, [$userID, $userName, $userEmail, $password]);
 
-            return $userId;
+            return $userID;
         } catch (\Throwable $e) {
             debug::logging($password);
             debug::logging($e);
@@ -54,19 +54,19 @@ class User extends DbData
     }
 
     // メールアドレスを取得
-    public function getEmail($userId)
+    public function getEmail($userID)
     {
-        $sql = "select userEmail from users where userId = ?";
-        $stmt = $this->query($sql, [$userId]);  // dbdata.phpのquery()メソッドの実行
+        $sql = "select userEmail from users where userID = ?";
+        $stmt = $this->query($sql, [$userID]);  // dbdata.phpのquery()メソッドの実行
         $result = $stmt->fetch();  // 抽出したデータを取り出す
         return $result['userEmail'];
     }
 
     // ユーザー情報更新処理
-    public function updateEmail($userId, $userEmail)
+    public function updateEmail($userID, $userEmail)
     {
-        $sql = "update users set userEmail = ? where userId = ?";
-        $result = $this->exec($sql, [$userEmail, $userId]);
+        $sql = "update users set userEmail = ? where userID = ?";
+        $result = $this->exec($sql, [$userEmail, $userID]);
         if ($result === false) {
             return 'メールアドレスの更新に失敗しました。';
         }
@@ -74,10 +74,10 @@ class User extends DbData
     }
 
     // ユーザー情報更新処理
-    public function updateName($userId, $userName)
+    public function updateName($userID, $userName)
     {
-        $sql = "update users set userName = ? where userId = ?";
-        $result = $this->exec($sql, [$userName, $userId]);
+        $sql = "update users set userName = ? where userID = ?";
+        $result = $this->exec($sql, [$userName, $userID]);
         if ($result === false) {
             return 'メールアドレスの更新に失敗しました。';
         }
@@ -85,31 +85,31 @@ class User extends DbData
     }
 
     // nonceの追加
-    public function updateNonce($nonce, $userId)
+    public function updateNonce($nonce, $userID)
     {
-        $sql = "update users set nonce = ? where userId = ?";
-        $this->exec($sql, [$nonce, $userId]);
+        $sql = "update users set nonce = ? where userID = ?";
+        $this->exec($sql, [$nonce, $userID]);
     }
 
-    // LINEuserIdの追加
-    public function updateLINEuserId($LINEuserId, $nonce)
+    // LINEuserIDの追加
+    public function updateLINEuserID($LINEuserID, $nonce)
     {
-        $sql = "update users set LINEuserId = ? where nonce = ?";
-        $this->exec($sql, [$LINEuserId, $nonce]);
+        $sql = "update users set LINEuserID = ? where nonce = ?";
+        $this->exec($sql, [$LINEuserID, $nonce]);
     }
 
     // LINEとの連携を解除
-    public function deleteLINEuserId($LINEuserId)
+    public function deleteLINEuserID($LINEuserID)
     {
-        $sql = "select LINEuserId from users where LINEuserId = ?";
-        $stmt = $this->query($sql, [$LINEuserId]);
+        $sql = "select LINEuserID from users where LINEuserID = ?";
+        $stmt = $this->query($sql, [$LINEuserID]);
         $result = $stmt->fetch();
 
         if (is_null($result)) {
-            return 'LINEuserIdは設定されていません';
+            return 'LINEuserIDは設定されていません';
         } else {
-            $sql = "update users set LINEuserId = NULL where LINEuserId = ?";
-            $this->exec($sql, [$LINEuserId]);
+            $sql = "update users set LINEuserID = NULL where LINEuserID = ?";
+            $this->exec($sql, [$LINEuserID]);
         }
     }
 }
