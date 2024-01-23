@@ -1,9 +1,26 @@
+body{
+    background: #f6f9ff;
+    text-align: center;
+}
+.daa{
+    font-size: 60px;
+}
+.daf{
+    font-size: 100px;
+}
+.dai{
+    font-size: 10px;
+}
 #area{
-    height: 150px;
-    width: 150px;
-    font-size: 80px;
-    border-radius: 30px;
-    border-color:rgba(77, 77, 77, 0.76);
+    color:rgba(77, 77, 77, 0.76);
+    background: #f6f9ff;
+    height: 600px;
+    width: 600px;
+    font-size: 400px;
+    border-radius: 100px;
+    border: 10px solid #b2d9ff;
+    opacity: 60%;
+    
     
 
 }
@@ -21,5 +38,32 @@
     color:rgba(77, 77, 77, 0.76);
 }
 .footer_content{
-    bottom: 0;
+    bottom:0;
+    margin:0 auto;
+
 }
+
+/*画像アップロードボタンの装飾*/
+.upload-label {
+    display: inline-block;
+    cursor: pointer; /* カーソルを指に */
+    margin: 1em 0; /* まわりの余白 */
+    padding: .7em 1em; /* 文字まわりの余白 */
+    line-height: 1.4; /* 行間 */
+    background: #3e8bff; /* 背景色 */
+    color: #FFF; /* 文字色 */
+    font-size: 0.95em; /* フォントサイズ */
+    border-radius: 2.5em; /* 角の丸み */
+    transition: 0.2s; /* ホバーをなめらかに */
+  }
+  /* ホバー時 */
+  .upload-label:hover {
+    box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.2); /* 影を表示 */
+  }
+  /* inputは隠す */
+  .upload-label input {
+    display: none;
+  }
+  .footer_content_text1{
+    font-size: 60px;
+  }
