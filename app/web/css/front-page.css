@@ -1,4 +1,4 @@
-nav{
+/*nav{
     display:flex;
     margin:auto;
     justify-content: center;    
@@ -37,10 +37,10 @@ button{
     color: #2D3648;
     border:solid;
     border-color:#2D3648;
-}
+}*/ 
 
 /*ボタンを中央に配置*/
-.center-buttons{
+/* .center-buttons{
     text-align:center;
 }
 footer{
@@ -50,13 +50,13 @@ footer{
     background-color:#2D3648;
     border: 1px solid #D7DBDD;
     bottom: 0; /*下に固定*/
-}
+/* }
 .contents01{
     display:flex;
     border: 2px solid #2D3648;
-    border-radius:20px;
-}
-img{
+    border-radius:20px; 
+/* }  */
+/* img{
     object-fit: cover;
 }
 .img2{
@@ -65,4 +65,147 @@ img{
 }
 .img1{
     border-radius: 18px 0 0 18px;
+} */
+
+.slideshow-fade{
+    position: relative;
+    width: 280px;
+    height: 200px;
+    li{
+        list-style: none;
+        width: 100%;
+        height: 100%;
+        img{
+          left: 0;
+          top: 0;
+          width: 100%;
+        }
+    }
 }
+
+.resizeimage {
+    width: 100%;
+    text-align: center; /* 中央揃え */
+    display: flex; /* 垂直方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
+    justify-content: center; /* 水平方向に中央揃え */
+    height: 100vh; /* ビューポートの高さに合わせる */
+  }
+  
+  .resizeimage img {
+    width: auto;
+    height: 100%; /* 親要素の高さに合わせる */
+  }
+
+/* トップページの背景色を設定 */
+body {
+    background-color:  #e0ffff; 
+  }
+
+  /*.front-header{
+    /* flexboxで要素を真ん中に指定 */
+    /*display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1300px;
+  }
+  .front-header ul {
+    width: 100%;
+  }
+  .button{
+    display: block;
+    padding:10px;
+    background:rgb(117, 202, 219);
+    width:20%;
+    float:left;*/
+    /* カーソルを離した際のアニメーションの速度調整 */
+    /*transition:.2s all;
+  }
+  .button p {
+    height: 10px;
+    font-weight: 300;
+  }
+  .button a {
+    color:#333333;
+    /* リンク指定した要素のスタイルを削除 */
+    /*text-decoration:none;
+  }
+  .front-header:hover .button{
+    /* ナビゲーションをマウスオーバーした際のアニメーションの動きを指定 */
+   /* opacity:.5;
+    /* 全てのボタンが少し小さくなる */
+    /*transform: scale(.98);
+  }
+  .front-header:hover .button:hover{
+    transition: .5s;
+    /* hover時の速度調整 */
+    /*transform:scale(1.5);
+    /* hoverしたボタンのみサイズを拡大する指定 */
+    /*opacity:1;
+  }
+  .front-header:hover .button:hover > p {
+    font-weight: bold;
+  }*/
+
+  .front-header {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1024px;
+    height: 100px;
+    padding: 0 0.8em;
+    
+    font-size: 1.2em;
+  }
+  
+  .header-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-nav-item {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+  }
+  
+  .logo img {
+    width: 300px;
+  }
+  
+  .header-button {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0.5em 1.2em;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .header-login {
+    color: #999;
+  }
+  
+  .header-signup {
+    font-weight: bold;
+    color: #fff;
+    background: #00b5ad;
+    border: 1px #00b5ad solid;
+    border-radius: 3px;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .header-signup {
+      display: none;
+    }
+  }
+  /* .header-title{
+    font-size:40px;
+    text-align: left;
+  } */
