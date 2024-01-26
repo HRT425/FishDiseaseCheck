@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/calendar_product.php';
 // タイムゾーンを設定
 date_default_timezone_set('Asia/Tokyo');
 
@@ -70,6 +71,8 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
     <title>カレンダー</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <!-- リセットcss(destyle.css) -->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@3.0.2/destyle.min.css">
     <style>
         .container {
             font-family: 'Noto Sans', sans-serif;
@@ -125,9 +128,31 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
             ?>
         </table>
     </div>
+    <fotter>
+        <div id="footer-content">
+            <!-- ここに詳細情報を表示 -->
+        </div>
+    </fotter>
+    <script>
+        // カレンダーの日付をクリックしたときに詳細情報を表示する関数
+        function showDetailInfo(date, selectedDate) {
+            // Ajaxを使用してサーバーから詳細情報を取得し、フッターに表示する
+            // 以下は例としてダミーデータを表示するコード
+            var dummyDetailInfo = "詳細情報：ダミーデータ";
+            document.getElementById("footer-content").innerHTML = dummyDetailInfo;
+        }
+
+        // すべての日付リンクに対してクリックイベントを追加
+        var dateLinks = document.querySelectorAll('td a');
+        dateLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                var date = link.getAttribute('href').split('=')[1];
+                var selectedDate = link.getAttribute('href').split('=')[2];
+                showDetailInfo(date, selectedDate);
+            });
+        });
+    </script>
 </body>
-<?php
-  $filename='home';
-  require_once __DIR__ . '/footer.php';
-?>
+
 </html>
