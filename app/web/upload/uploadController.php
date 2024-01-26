@@ -45,9 +45,13 @@ class uploadController
     public function takeImage()
     {
         try {
-            $data = base64_decode($this->imageData);
+
+            $da = explode(',', $this->imageData);
+
+            $data = base64_decode($da[1]);
 
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
+
             $mime_type = finfo_buffer($finfo, $data);
 
             $this->filename = time() . '_' . uniqid() . '.' . $this->extension[$mime_type];

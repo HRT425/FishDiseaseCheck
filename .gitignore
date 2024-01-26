@@ -4,3 +4,4 @@ database-configuration/
 docker/SchemaSpy/config/
 debug.log
 test.*
+uploadPicture/
