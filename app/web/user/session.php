@@ -7,9 +7,9 @@ function session()
         session_start();
     }
 
-    // ログインしていることが前提のアプリであるから
-    if (!isset($_SESSION['userId']) || !isset($_SESSION['userName'])) {
-        header('Location: ./user/login.php');
+    // ログインしていないならlogin画面に移動
+    if (!isset($_SESSION['userID']) || !isset($_SESSION['userName'])) {
+        header('Location: http://localhost:8080/web/user/login.php');
         exit();
     }
 }
