@@ -25,6 +25,7 @@ function startup() {
     videoStart()
 
     video.addEventListener('canplay', function (ev) {
+        console.log("開始")
         if (!streaming) {
             height = video.videoHeight / (video.videoWidth / width)
 
@@ -37,6 +38,7 @@ function startup() {
     }, false)
 
     main_content_startbutton.addEventListener('click', function (ev) {
+        console.log("開始")
         takepicture()
         ev.preventDefault()
     }, false);
@@ -79,14 +81,16 @@ function takepicture() {
     }
 }
 function send() {
-    data = canvas.toDataURL('image/png')
-    console.log(data);
-    $.ajax('./upload/upload.php', {
-        method: 'POST',
-        data: { image: data }
-    }).then(res => {
-        $('#readStr').val(res)
-    })
+    data = canvas.toDataURL('image/png');
+    let inputImage = document.getElementById("inputImage");
+    inputImage.value = data;
+    document.upload_form.submit();
+    // $.ajax('./upload/upload.php', {
+    //     method: 'POST',
+    //     data: { image: data }
+    // }).then(res => {
+    //     $('#readStr').val(res)
+    // })
 }
 
 startup()

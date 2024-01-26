@@ -1,5 +1,5 @@
 <?
-echo $_POST['image'];
+echo print_r($_POST);
 ?>
 <!DOCTYPE html>
 <html>

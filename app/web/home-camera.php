@@ -14,10 +14,17 @@
         <div class="main_content_camera">
             <video id="video">Video stream not available.</video>
         </div><br>
-        <button id="main_content_startbutton">撮影！！！！！</button><br>
-        <canvas id="canvas">
-            <textarea id="readStr"></textarea>
-        </canvas>
+
+        <form name="upload_form" action="./upload/upload.php" method="post">
+            <input id="inputImage" type="hidden" name="image" value="jj">
+            <button id="main_content_startbutton">撮影！！！！！</button>
+            <canvas id="canvas">
+                <textarea id="readStr"></textarea>
+            </canvas>
+            <button type="submit">送信</button>
+
+        </form>
+
     </div>
 </body>
 
