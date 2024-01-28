@@ -32,7 +32,6 @@ services:
     build:
       context: .
       dockerfile: docker/python/dockerfile
-    command:  /bin/sh -c 'apt update && apt-get install -y libgl1-mesa-dev && python "AI/api.py"'
     # ポート
     ports:
       - 5001:80

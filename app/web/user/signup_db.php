@@ -25,5 +25,5 @@ $userID = (new User)->signUp($userName, $userEmail, $password);
 $_SESSION['userID'] = $userID;
 $_SESSION['userName'] = $userName;
 
-header('Location: ../breedingEnv/fish-select.php');
+header('Location: ../home.php');
 exit;

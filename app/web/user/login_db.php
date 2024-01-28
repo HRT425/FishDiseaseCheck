@@ -32,5 +32,5 @@ if (isset($_POST['linkToken'])) {
     exit();
 }
 
-header('Location: ../upload/test.php');
+header('Location: ../home.php');
 exit();

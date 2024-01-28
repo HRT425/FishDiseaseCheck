@@ -83,33 +83,4 @@ class User extends DbData
         }
         return "";
     }
-
-    // nonceの追加
-    public function updateNonce($nonce, $userID)
-    {
-        $sql = "update users set nonce = ? where userID = ?";
-        $this->exec($sql, [$nonce, $userID]);
-    }
-
-    // LINEuserIDの追加
-    public function updateLINEuserID($LINEuserID, $nonce)
-    {
-        $sql = "update users set LINEuserID = ? where nonce = ?";
-        $this->exec($sql, [$LINEuserID, $nonce]);
-    }
-
-    // LINEとの連携を解除
-    public function deleteLINEuserID($LINEuserID)
-    {
-        $sql = "select LINEuserID from users where LINEuserID = ?";
-        $stmt = $this->query($sql, [$LINEuserID]);
-        $result = $stmt->fetch();
-
-        if (is_null($result)) {
-            return 'LINEuserIDは設定されていません';
-        } else {
-            $sql = "update users set LINEuserID = NULL where LINEuserID = ?";
-            $this->exec($sql, [$LINEuserID]);
-        }
-    }
 }

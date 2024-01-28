@@ -25,7 +25,7 @@ $userEmail = '';
     <p><input type="password" name="password" placeholder="入力" required></p>
 
 
-    <p><input type="submit" value="次へ"></p>
+    <p><input type="submit" value="登録"></p>
 </form>
 
 <a href="./login.php"><span class="button_image">ログインへ</span></a>
