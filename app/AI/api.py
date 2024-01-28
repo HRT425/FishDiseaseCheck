@@ -1,7 +1,7 @@
 # 画像をアップロードされたら推論するAIを呼び出す用のAPI
 from flask import Flask, Response
 from flask_restful import Resource, Api
-from anomalie_detection import fine_tuned 
+import yolo 
 import json
 
 # Flaskを初期化
@@ -12,29 +12,31 @@ app = Flask(__name__)
 # RestFulを初期化
 api = Api(app)
 
-# AIモデルを構築
-ft = fine_tuned()
-
 # 呼び出し時に実行するclass
 class Inference(Resource):
 
-    def get(self, filename):
+    def get(self, image_path):
         """
         推論を行う関数を呼び出し、結果をJSON形式で返す。
         """
-
-        # 判定
-        class_names = {0: '病気の可能性あり', 1: '健康体'}
-
-        # 入力画像のパス
-        image_path = '/app/image/' + filename
-        
+        # 魚が撮影出来ているか
+        fish_photographed_flag = 0
         # 推論結果を取得する
-        result = ft.inference(image_path)
+        YoloExecute = yolo.YoloExecute(image_path)
+        flag = YoloExecute.fish_yolo_execute()
+        if flag:
+            YoloExecute.resizeImage()
+            fish_disease_flg, result_credibility = YoloExecute.disease_yolo_execute()
+        else:
+            fish_disease_flg = 0
+            result_credibility = 0
+            fish_photographed_flag = 1
 
         # 結果を辞書に変更
         response_data = {
-            "result": class_names[result], 
+            "result": fish_disease_flg,
+            "credibility": result_credibility,
+            "fish_photographed_flag": fish_photographed_flag
             }
         
         # 辞書をJSON形式に変更
@@ -44,7 +46,7 @@ class Inference(Resource):
         return Response(response_json, content_type="application/json; charset=utf-8")
 
 # APIにclassとrouteを設定
-api.add_resource(Inference, '/inference/<string:filename>')
+api.add_resource(Inference, '/inference/<string:image_path>')
 
 if __name__ == '__main__':
     # APIを起動する

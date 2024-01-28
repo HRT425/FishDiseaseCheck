@@ -1,3 +1,22 @@
+<?php
+require_once __DIR__ . '/user/session.php';
+
+session();
+
+$image_name = isset($_SESSION['image_name']) ? $_SESSION['image_name'] : null;
+
+if (isset($_SESSION['uploadError'])) {
+    echo '<h3>' . $_SESSION['uploadError'] . '</h3>';
+    unset($_SESSION['uploadError']);
+    $image_path = '/inference_image/origin/' . $image_name;
+} else {
+    if ($image_name) {
+        $image_path = '/inference_image/inference/disease/' . explode('.', $image_name)[0] . '/image0.jpg';
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
@@ -9,17 +28,25 @@
 
 <body>
     <p class="daf">魚の健康状態</p>
+    <?php
+    if ($image_name) {
+        echo "<img src=$image_path alt='魚の画像'>";
+    }
+    ?>
     <div class="main_content">
         <label class="upload-label">
-
             <p class="daa" onclick="location.href='./home-camera.php'">写真を撮るならTap！</p>
         </label>
     </div>
     <div class="content">
-        <label class="upload-label">
-            <p class="daa">画像をアップロード</p>
-            <input type="file" id="example" multiple>
-        </label>
+        <form action="./upload/upload.php" method="post" enctype="multipart/form-data">
+            <!-- <label class="upload-label">
+                <p class="daa">画像をアップロード</p>
+                <input type="file" id="button" multiple>
+            </label> -->
+            <input type="file" name="image">
+            <input type="submit" value="アップロード">
+        </form>
         <!-- プレビュー画像を追加する -->
         <div id="preview"></div>
     </div>

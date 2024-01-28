@@ -10,9 +10,7 @@ class condition extends dbdata
     {
         try {
             $conditionID = (new UUID)->createUUid();
-            $sql = <<<EOF
-            insert into condition(conditionID, result, value, imgPath, userID) values(?, ?, ?, ?, ?) 
-        EOF;
+            $sql = "insert into `condition`(conditionID, result, value, imgPath, userID) values(?, ?, ?, ?, ?)";
 
             $stmt = $this->exec($sql, [$conditionID, $result, $value, $imgPath, $userID]);
             $result = $stmt->fetch();

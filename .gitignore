@@ -6,3 +6,4 @@ debug.log
 test.*
 uploadPicture/
 model/
+inference_image/

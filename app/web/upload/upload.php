@@ -6,18 +6,9 @@ require_once __DIR__ . '/../user/session.php';
 
 session();
 
-debug::logging('開始');
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    debug::logging('受け取リ');
-
-    debug::logging($_SESSION);
-    debug::logging($_SESSION['userID']);
-
     $userID = $_SESSION['userID'];
-
-    debug::logging($_FILES);
 
     /* 
     if (既存の写真をアップロードした場合) 
@@ -26,28 +17,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     */
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 
-        debug::logging("既存の写真をアップロード");
-
         $imageData = $_FILES['image']['tmp_name'];
 
         $uploadController = new uploadController($userID, $imageData);
-        $uploadController->selectImage();
+        $image_name = $uploadController->selectImage();
     } else {
-        debug::logging("アプリ内で撮影した写真をアップロード");
 
         $imageData = $_POST['image'];
 
         $uploadController = new uploadController($userID, $imageData);
-        $uploadController->takeImage();
+        $image_name = $uploadController->takeImage();
     }
 
-    debug::logging('ok');
+    $error_text = $uploadController->callAPIandDBsave();
 
-    $error = $uploadController->callAPIandDBsave();
-
-    if ($error) {
-        $_SESSION['uploadError'] = 'データベースの処理中にエラーが発生しました。';
+    if ($error_text) {
+        $_SESSION['uploadError'] = $error_text;
     }
+
+    $_SESSION['image_name'] = $image_name;
 
     header('Location: /web/home.php');
     exit();

@@ -7,6 +7,7 @@ def delete_directory(directory_path):
         # ディレクトリとその内容を削除
         shutil.rmtree(directory_path)
 
-# 使用例
-directory_path = 'runs/'
-delete_directory(directory_path)
+if __name__ == '__main__':
+    # 使用例
+    directory_path = 'runs/'
+    delete_directory(directory_path)

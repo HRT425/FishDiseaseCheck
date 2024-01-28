@@ -7,7 +7,7 @@ class uploadController
     private string $userID;
     private string $imageData;
 
-    private string $uploadDir = '../image/uploadPicture/';
+    private string $uploadDir = '../../inference_image/origin/';
     private string $filename;
 
     private array $extension = [
@@ -20,6 +20,10 @@ class uploadController
     {
         $this->userID = $userID;
         $this->imageData = $imageData;
+
+        if (!file_exists($this->uploadDir)) {
+            mkdir($this->uploadDir, 0777, true);
+        }
     }
 
     // 既存の写真をフォルダに保存
@@ -34,8 +38,10 @@ class uploadController
 
             // 画像を移動
             $destination = $this->uploadDir . $this->filename;
-            debug::logging($destination);
+
             move_uploaded_file($this->imageData, $destination);
+
+            return $this->filename;
         } catch (\Throwable $e) {
             debug::logging($e);
         }
@@ -58,6 +64,8 @@ class uploadController
             $destination = $this->uploadDir . $this->filename;
 
             file_put_contents($destination, $data);
+
+            return $this->filename;
         } catch (\Throwable $e) {
             debug::logging($e);
         }
@@ -68,12 +76,16 @@ class uploadController
     {
         try {
             // 魚の異常検知機能を呼び出す
-            $json = file_get_contents('http://python/' . $this->filename);
+            $json = file_get_contents('http://ai-api/inference/' . $this->filename);
             $obj = json_decode($json);
 
-            $db_result = (new condition)->insertCondition($obj['result'], isset($obj['value']) ? $obj['value'] : null, $this->filename, $this->userID);
+            if ($obj->fish_photographed_flag) {
+                return '魚を認識に失敗しました。もう一度撮影してください。';
+            }
 
-            return $db_result;
+            $db_result = (new condition)->insertCondition($obj->result ? 1 : 0, $obj->credibility, $this->filename, $this->userID);
+
+            return $db_result ? 'データベースの処理中にエラーが発生しました。' : false;
         } catch (\Throwable $e) {
             debug::logging($e);
         }
