@@ -38,6 +38,7 @@ services:
     # ローカルPCとコンテナ間でディレクトリをバインド
     volumes:
       - ./app:/app
+    command: bash -c "apt update && apt-get install -y libgl1-mesa-dev && python AI/api.py"
     # コンテナを閉じない
     tty: true
     # 利用するネットワーク

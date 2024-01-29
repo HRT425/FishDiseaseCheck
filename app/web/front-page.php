@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>トップページ</title>
   <meta charset="UTF-8">
@@ -18,21 +19,28 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </head>
+
 <body>
   <header class="front-header">
     <div class="header-inner">
       <div class="logo">
-        <img src="./image/図2.png">
+        <img src="./image/logo2.png">
       </div>
       <!--<h2 class="header-title">ウオッチング</h2>-->
       <nav class="header-nav">
         <div class="header-nav-item">
+          <a href="./applicationOverview/applicationOverview.html" class="header-button header-login">アプリの概要</a>
+        </div>
+        <div class="header-nav-item">
+          <a href="./member/member.html" class="header-button header-login">メンバー役割</a>
+        </div>
+        <div class="header-nav-item">
           <a href="./user/signup.php" class="header-button header-signup">新規登録</a>
         </div>
         <div class="header-nav-item">
-          <a href="./user/login.php"class="header-button header-login">ログイン</a>
+          <a href="./user/login.php" class="header-button header-login">ログイン</a>
         </div>
-        
+
         <!--<ul>
           <li class="button">
             <p><a href='./user/signup.php'>Sign Up</a></p>
@@ -50,37 +58,44 @@
       </nav>
     </div>
   </header>
-    <hr>
+  <hr>
 
-    <main class="main-contents">
-      
-      <section class="group01">
+  <main class="main-contents">
 
-        <ul class="slideshow-fade resizeimage">
-          <li><img src="./image/2.jpg" alt="スライドショー画像1" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
-          <li><img src="./image/3.jpg" alt="スライドショー画像2" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
-          <li><img src="./image/4.jpg" alt="スライドショー画像3" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
-          <li><img src="./image/5.jpg" alt="スライドショー画像4" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
-          <li><img src="./image/10.jpg" alt="スライドショー画像5" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
-          <li><img src="./image/19.jpg" alt="スライドショー画像6" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
-          <li><img src="./image/35.jpg" alt="スライドショー画像7" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
-        </ul>
+    <section class="group01">
+
+      <ul class="slideshow-fade resizeimage">
+        <li><img src="./image/2.jpg" alt="スライドショー画像1" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
+        <li><img src="./image/3.jpg" alt="スライドショー画像2" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
+        <li><img src="./image/4.jpg" alt="スライドショー画像3" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
+        <li><img src="./image/5.jpg" alt="スライドショー画像4" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
+        <li><img src="./image/10.jpg" alt="スライドショー画像5" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
+        <li><img src="./image/19.jpg" alt="スライドショー画像6" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
+        <li><img src="./image/35.jpg" alt="スライドショー画像7" style="width: 80%; height: auto; display: block; margin: 0 auto;"></li>
+      </ul>
 
 
-        <script>
-          $(function(){
-            $(".slideshow-fade li").css({"position":"relative","overflow":"hidden"});
-            $(".slideshow-fade li").hide().css({"position":"absolute","top":0,"left":0});
-            $(".slideshow-fade li:first").addClass("fade").show();
-            setInterval(function(){
-              var $active = $(".slideshow-fade li.fade");
-              var $next = $active.next("li").length?$active.next("li"):$(".slideshow-fade li:first");
-              $active.fadeOut(1000).removeClass("fade");
-              $next.fadeIn(1000).addClass("fade");
-            },2000);
+      <script>
+        $(function() {
+          $(".slideshow-fade li").css({
+            "position": "relative",
+            "overflow": "hidden"
           });
-        </script>
-            <!--<h2>このアプリについて</h2>
+          $(".slideshow-fade li").hide().css({
+            "position": "absolute",
+            "top": 0,
+            "left": 0
+          });
+          $(".slideshow-fade li:first").addClass("fade").show();
+          setInterval(function() {
+            var $active = $(".slideshow-fade li.fade");
+            var $next = $active.next("li").length ? $active.next("li") : $(".slideshow-fade li:first");
+            $active.fadeOut(1000).removeClass("fade");
+            $next.fadeIn(1000).addClass("fade");
+          }, 2000);
+        });
+      </script>
+      <!--<h2>このアプリについて</h2>
             <div class="contents01">
               <img class="img1" src="./image/image01.jpg" alt="">
               <div class="detail">
@@ -106,8 +121,9 @@
                 <p>hogehoge</p>
               </div>
             </div>-->
-      </section>
-      <br>
-    </main>
+    </section>
+    <br>
+  </main>
 </body>
+
 </html>

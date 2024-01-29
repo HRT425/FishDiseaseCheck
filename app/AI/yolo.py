@@ -36,15 +36,18 @@ class YoloExecute:
         y_max = int(center_y + height // 2.0)
         return x_min, y_min, x_max, y_max
 
-    def confidence_level_check(self, dir_name):
+    def confidence_level_check(self, dir_name, txt_name):
         """
         信頼度判定を行うメソッド
         dir_name: ./inference_image/inference/ 内にあるフォルダ(fish 又は disease)の指定
         """
+        print('開始')
         self.main_line = []
         self.max_credibility=0.0
-        file_path = self.project_name + dir_name + self.image_file_name + '/labels/' + self.image_file_name +'.txt'
+        file_path = self.project_name + dir_name + self.image_file_name + '/labels/' + txt_name +'.txt'
+        print(file_path)
         if (os.path.isfile(file_path)):
+            print('開始２')
             with open(file_path, 'r') as file:
                 for line in file:
                     # 空白で分割して数値に変換
@@ -53,6 +56,12 @@ class YoloExecute:
                     if self.max_credibility < row_value[5]:
                         self.max_credibility=row_value[5]
                         self.main_line = row_value
+        
+        print(self.max_credibility)
+        print(self.main_line)
+
+        return self.max_credibility
+                    
 
     def fish_yolo_execute(self):
         """
@@ -67,7 +76,7 @@ class YoloExecute:
                       save_txt=True,
                       save_conf=True)
         
-        self.confidence_level_check('fish/')
+        self.confidence_level_check('fish/', self.image_file_name)
 
         if (self.main_line):
             return 1
@@ -102,11 +111,13 @@ class YoloExecute:
                       save_txt=True,
                       save_conf=True)
         
-        self.confidence_level_check('disease/')
+        max_credibility = self.confidence_level_check('disease/', 'image0')
 
-        if self.max_credibility > 0:
+        print(max_credibility)
+
+        if max_credibility > 0:
             self.fish_disease_flg=True
-            self.result_credibility=self.max_credibility
+            self.result_credibility=max_credibility
 
         return self.fish_disease_flg, self.result_credibility
 

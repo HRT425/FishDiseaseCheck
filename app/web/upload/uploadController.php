@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../database/condition.php';
+require_once __DIR__ . '/../logger/debug.php';
 
 class uploadController
 {
@@ -77,15 +78,21 @@ class uploadController
         try {
             // 魚の異常検知機能を呼び出す
             $json = file_get_contents('http://ai-api/inference/' . $this->filename);
+            debug::logging($json);
             $obj = json_decode($json);
+            debug::logging($obj);
 
             if ($obj->fish_photographed_flag) {
                 return '魚を認識に失敗しました。もう一度撮影してください。';
             }
 
-            $db_result = (new condition)->insertCondition($obj->result ? 1 : 0, $obj->credibility, $this->filename, $this->userID);
+            debug::logging($obj->result);
 
-            return $db_result ? 'データベースの処理中にエラーが発生しました。' : false;
+            $result = $obj->result ? 1 : 0;
+
+            $db_result = (new condition)->insertCondition($result, $obj->credibility, $this->filename, $this->userID);
+
+            return [$db_result ? 'データベースの処理中にエラーが発生しました。' : false, $result];
         } catch (\Throwable $e) {
             debug::logging($e);
         }

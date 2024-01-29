@@ -4,6 +4,7 @@ require_once __DIR__ . '/user/session.php';
 session();
 
 $image_name = isset($_SESSION['image_name']) ? $_SESSION['image_name'] : null;
+$result = isset($_SESSION['result']) ? $_SESSION['result'] : null;
 
 if (isset($_SESSION['uploadError'])) {
     echo '<h3>' . $_SESSION['uploadError'] . '</h3>';
@@ -29,6 +30,11 @@ if (isset($_SESSION['uploadError'])) {
 <body>
     <p class="daf">魚の健康状態</p>
     <?php
+    if ($result === 0) {
+        echo "<h4>健康です。</h4>";
+    } else if ($result === 1) {
+        echo "<h4>病気の可能性があります。</h4>";
+    }
     if ($image_name) {
         echo "<img src=$image_path alt='魚の画像'>";
     }

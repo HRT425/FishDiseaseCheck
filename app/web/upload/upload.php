@@ -29,13 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image_name = $uploadController->takeImage();
     }
 
-    $error_text = $uploadController->callAPIandDBsave();
+    list($error_text, $reuslt) = $uploadController->callAPIandDBsave();
 
     if ($error_text) {
         $_SESSION['uploadError'] = $error_text;
     }
 
     $_SESSION['image_name'] = $image_name;
+    $_SESSION['result'] = $reuslt;
 
     header('Location: /web/home.php');
     exit();
