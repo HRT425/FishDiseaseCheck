@@ -3,3 +3,7 @@ __pycache__/
 database-configuration/
 docker/SchemaSpy/config/
 debug.log
+test.*
+uploadPicture/
+model/
+inference_image/

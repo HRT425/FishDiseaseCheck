@@ -62,6 +62,7 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - TZ=Asia/Tokyo
     # 動いているか確認
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "MYSQL_USER", "-p$MYSQL_ROOT_PASSWORD"]

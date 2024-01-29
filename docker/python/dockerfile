@@ -1,5 +1,5 @@
 # pythonのバージョン3.10を利用する
-FROM python:3.10
+FROM python:3.11
 
 # 作業ディレクトリをappに設定
 WORKDIR /app
@@ -8,7 +8,9 @@ WORKDIR /app
 ADD . /app
 
 # requirements.txtに書かれたライブラリをインストール
-RUN pip install --no-cache-dir -r ./docker/python/requirements.txt
+RUN apt update \
+    apt-get install -y libgl1-mesa-dev \
+    pip install --no-cache-dir -r ./docker/python/requirements.txt
 
 # 起動時にapi.pyを実行
 CMD ["python", "AI/api.py"]

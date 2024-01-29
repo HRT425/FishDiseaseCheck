@@ -19,11 +19,11 @@ if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
 
 // Userオブジェクトを生成し、ユーザー登録処理を行うsignUp( )メソッドを呼び出し、その結果のメッセージを受け取る
 // データベースに登録する
-$userId = (new User)->signUp($userName, $userEmail, $password);
+$userID = (new User)->signUp($userName, $userEmail, $password);
 
 // ユーザー情報をセッションに保持する
-$_SESSION['userId'] = $userId;
+$_SESSION['userID'] = $userID;
 $_SESSION['userName'] = $userName;
 
-header('Location: ../breedingEnv/fish-select.php');
+header('Location: ../home.php');
 exit;

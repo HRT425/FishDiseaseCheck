@@ -2,6 +2,8 @@ function previewFile(file) {
   // プレビュー画像を追加する要素
   const preview = document.getElementById('preview');
 
+  console.log('previewFileの実行');
+
   // FileReaderオブジェクトを作成
   const reader = new FileReader();
 
@@ -10,7 +12,7 @@ function previewFile(file) {
     const imageUrl = e.target.result; // 画像のURLはevent.target.resultで呼び出せる
     const img = document.createElement("img"); // img要素を作成
     img.src = imageUrl; // 画像のURLをimg要素にセット
-    preview.appendChild(img); // #previewの中に追加
+    preview.appendChild(img); // previewの中に追加
   }
 
   // いざファイルを読み込む
@@ -19,8 +21,11 @@ function previewFile(file) {
 
 
 // <input>でファイルが選択されたときの処理
-const fileInput = document.getElementById('example');
+const fileInput = document.getElementById('button');
+console.log('開始');
+
 const handleFileSelect = () => {
+  console.log('handleFileSelectの実行');
   const files = fileInput.files;
   for (let i = 0; i < files.length; i++) {
     previewFile(files[i]);

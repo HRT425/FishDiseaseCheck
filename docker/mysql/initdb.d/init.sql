@@ -35,7 +35,7 @@ create table aqua.condition (
     conditionID char(36) not null,
     result int not null,
     value int,
-    imgPath varchar(20) not null,
+    imgPath char(29) not null,
     userID char(36) not null,
     created_at datetime not null default current_timestamp,
     primary key (conditionID),
