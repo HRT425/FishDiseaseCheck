@@ -1,6 +1,4 @@
-Flask
-flask-restful
-# torch
-# torchvision
-Pillow
-ultralytics
+Flask==3.0.1
+flask-restful==0.3.10
+Pillow==10.2.0
+ultralytics==8.1.6

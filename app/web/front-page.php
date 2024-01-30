@@ -32,9 +32,6 @@
           <a href="./applicationOverview/applicationOverview.html" class="header-button header-login">アプリの概要</a>
         </div>
         <div class="header-nav-item">
-          <a href="./member/member.html" class="header-button header-login">メンバー役割</a>
-        </div>
-        <div class="header-nav-item">
           <a href="./user/signup.php" class="header-button header-signup">新規登録</a>
         </div>
         <div class="header-nav-item">
