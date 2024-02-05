@@ -20,7 +20,7 @@
 
 ## 目次
 
-1. [プロジェクトについて](#プロジェクトについて)
+1. [ウオッチングについて](#ウオッチングについて)
 2. [環境](#環境)
 3. [ディレクトリ構成](#ディレクトリ構成)
 4. [開発環境構築](#開発環境構築)
@@ -65,55 +65,58 @@ yolov8を用いて、魚種分類➞魚病分類を行います。
 │   │   ├── api.py (webアプリから呼び出される部分)
 │   │   ├── yolo.py (学習済みモデルを用いて、推論を行う)
 │   ├── web (webアプリのメイン)
-│   │   ├── calendar
-│   │   ├── application
-│   │   ├── docs
-│   │   ├── manage.py
-│   │   ├── output
-│   │   ├── poetry.lock
-│   │   ├── project
-│   │   └── pyproject.toml
+│   │   ├── config
+│   │   |    ├── .env (環境変数) ※ 各自で作成
+│   │   |    └── config.php (環境変数の取り出しを行う)
+│   │   ├── css
+│   │   |    ├── front-page.css (トップページのcss)
+│   │   |    ├── home.css (ホーム画面のcss)
+│   │   |    └── login.css (ログイン画面のcss)
+│   │   ├── database
+│   │   |    ├── conditon.php (アップロードした写真の判定結果を保存する機能)
+│   │   |    ├── dbdata.php (データベースへのアクセスに関する機能)
+│   │   |    └── user.php (ユーザ情報の登録・取得に関する機能)
+│   │   ├── image
+│   │   |    ├── uploadPicture (アップロードした写真の保存場所)
+│   │   |    └── 以下、htmlで使う写真
+│   │   ├── js
+│   │   |    └── camera.js (カメラ機能)
+│   │   ├── logger
+│   │   |    ├── debug.log (情報を追記する) ※ 各自で作成
+│   │   |    └── debug.php (debug.logに情報を追加する)
+│   │   ├── upload
+│   │   |    ├── upload.php (受け取った写真をAPIに送り結果を返す)
+│   │   |    └── uploadController.php (データベース処理やAPIへのアクセスを行う)
+│   │   ├── user
+│   │   |    ├── login_db.php (ログイン処理を行う)
+│   │   |    ├── login.php (ユーザーがログインを行う画面を表示)
+│   │   |    ├── session.php (ログインされているかの確認)
+│   │   |    ├── signup_db.php (サインアップ処理を行う)
+│   │   |    └── signup.php (ユーザーがサインアップを行う画面を表示)
+│   │   ├── uuid
+│   │   |    └── uuid.php (一意のデータを作成する)
+│   │   ├── front-page.php (トップページ)
+│   │   ├── home-camera.php (カメラ画面)
+│   │   ├── home.php (ログイン後のホーム画面)
+│   │   └── pre_sub.php (遷移管理)
 │   └── index.php (初めにリダイレクトされるファイル)
-├── .gitignore
-├── Makefile
-├── README.md
-├── backend
-│   ├── .vscode
-│   ├── application
-│   ├── docs
-│   ├── manage.py
-│   ├── output
-│   ├── poetry.lock
-│   ├── project
-│   └── pyproject.toml
-├── containers
-│   ├── django
-│   ├── front
+├── docker
 │   ├── mysql
-│   └── nginx
-├── docker-compose.yml
-├── frontend
-│   ├── .gitignore
-│   ├── README.md
-│   ├── __test__
-│   ├── components
-│   ├── features
-│   ├── next-env.d.ts
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── pages
-│   ├── postcss.config.js
-│   ├── public
-│   ├── styles
-│   ├── tailwind.config.js
-│   └── tsconfig.json
-└── infra
-    ├── .gitignore
-    ├── docker-compose.yml
-    ├── main.tf
-    ├── network.tf
-    └── variables.tf
-├── .env
+│   │   └── initdb.d
+│   │        └── init.sql (データベース作成時に実行されるSQL)
+│   ├── php
+│   │   └── dockerfile (phpのimageを作成する)
+│   ├── python
+│   │   ├── dockerfile (pythonのimageを作成する)
+│   │   └── requirements.txt (pythonのライブラリを設定)
+│   └── SchemaSpy (データベースの可視化)
+│   │   ├── config 
+│   │   |    └── schemaspy.properties (SchemaSpyの設定) ※ 各自で作成
+│   │   └── dockerfile (SchemaSpyのimageを作成)
+├── .env (docker-compose.ymlで使用する設定) ※ 各自で作成
+├── .gitignore (github上に挙げたくないファイルを設定)
+├── docker-compose.yml (dockerのコンテナを作成する)
+└── README.md
 ```
 
 <p align="right">(<a href="#top">トップへ</a>)</p>
@@ -126,80 +129,76 @@ yolov8を用いて、魚種分類➞魚病分類を行います。
 
 .env ファイルを以下の環境変数例と[環境変数の一覧](#環境変数の一覧)を元に作成
 
-.env
+.env  
+```
 MYSQL_ROOT_PASSWORD=root
-MYSQL_DATABASE=django-db
-MYSQL_USER=django
-MYSQL_PASSWORD=django
-MYSQL_HOST=db
-MYSQL_PORT=3306
-SECRET_KEY=django
-DJANGO_SETTINGS_MODULE=project.settings.local
+MYSQL_USER=test
+MYSQL_PASSWORD=test
+MYSQL_DATABASE=aqua
+PMA_HOSTS=mysql  
+PMA_USER=test  
+PMA_PASSWORD=test
+```
 
+web/config/.env  
+```
+dbname=aqua  
+host=mysql  
+username=test  
+password=test
+```
+docker/SchemaSpy/config/schemaspy.properties  
+```
+schemaspy.t=mysql
+schemaspy.dp=drivers/mysql-connector-java-8.0.30.jar
+schemaspy.host=mysql
+schemaspy.port=3306
+schemaspy.db=aqua
+schemaspy.u=test
+schemaspy.p=test
+schemaspy.o=/../database-configuration
+schemaspy.s=aqua
+```
 
 .env ファイルを作成後、以下のコマンドで開発環境を構築
 
-make prepare
+docker-compose up -d
 
 ### 動作確認
 
-http://127.0.0.1:8000 にアクセスできるか確認
+http://localhost:8000/ にアクセスできるか確認
 アクセスできたら成功
 
 ### コンテナの停止
 
 以下のコマンドでコンテナを停止することができます
 
-make down
+docker-compose down
 
 ### 環境変数の一覧
 
 | 変数名                 | 役割                                      | デフォルト値                       | DEV 環境での値                           |
 | ---------------------- | ----------------------------------------- | ---------------------------------- | ---------------------------------------- |
-| MYSQL_ROOT_PASSWORD    | MySQL のルートパスワード（Docker で使用） | root                               |                                          |
-| MYSQL_DATABASE         | MySQL のデータベース名（Docker で使用）   | django-db                          |                                          |
-| MYSQL_USER             | MySQL のユーザ名（Docker で使用）         | django                             |                                          |
-| MYSQL_PASSWORD         | MySQL のパスワード（Docker で使用）       | django                             |                                          |
-| MYSQL_HOST             | MySQL のホスト名（Docker で使用）         | db                                 |                                          |
-| MYSQL_PORT             | MySQL のポート番号（Docker で使用）       | 3306                               |                                          |
-| SECRET_KEY             | Django のシークレットキー                 | secretkey                          | 他者に推測されないランダムな値にすること |
-| ALLOWED_HOSTS          | リクエストを許可するホスト名              | localhost 127.0.0.1 [::1] back web | フロントのホスト名                       |
-| DEBUG                  | デバッグモードの切り替え                  | True                               | False                                    |
-| TRUSTED_ORIGINS        | CORS で許可するオリジン                   | http://localhost                   |                                          |
-| DJANGO_SETTINGS_MODULE | Django アプリケーションの設定モジュール   | project.settings.local             | project.settings.dev                     |
+| MYSQL_ROOT_PASSWORD    | MySQL のルートパスワード（Docker で使用） | root                               |    指定なし                                     |
+| MYSQL_DATABASE         | MySQL のデータベース名（Docker で使用）   | aqua                          |     指定なし                                     |
+| MYSQL_USER             | MySQL のユーザ名（Docker で使用）         | test                             |    指定なし                                      |
+| MYSQL_PASSWORD         | MySQL のパスワード（Docker で使用）       | test                             |     指定なし                                     |
+| PMA_HOSTS             | phpMyadmin のホスト名（Docker で使用）         | mysql                                 |   指定なし                                       |
+| PMA_USER             | phpMyadmin のユーザ名（Docker で使用）       | test                               |    指定なし                                      |
+| PMA_PASSWORD             | phpMyadminのパスワード (Docker で使用)                 | test                          | 指定なし |
+| dbname          | MySQLのデータベース名(アプリ内の環境変数で使用)              | aqua | 指定なし                       |
+| host                  | MySQLのホスト名(アプリ内の環境変数で使用)                  | mysql                               | 指定なし                                    |
+| username        | MySQLのユーザ名(アプリ内の環境変数で使用)                  | test                   |         指定なし                                  |
+| password | MySQLのパスワード(アプリ内の環境変数で使用)   | test             | 指定なし                     |
 
 ### コマンド一覧
 
-| Make                | 実行する処理                                                            | 元のコマンド                                                                               |
-| ------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| make prepare        | node_modules のインストール、イメージのビルド、コンテナの起動を順に行う | docker-compose run --rm front npm install<br>docker-compose up -d --build                  |
-| make up             | コンテナの起動                                                          | docker-compose up -d                                                                       |
-| make build          | イメージのビルド                                                        | docker-compose build                                                                       |
-| make down           | コンテナの停止                                                          | docker-compose down                                                                        |
-| make loaddata       | テストデータの投入                                                      | docker-compose exec app poetry run python manage.py loaddata crm.json                      |
-| make makemigrations | マイグレーションファイルの作成                                          | docker-compose exec app poetry run python manage.py makemigrations                         |
-| make migrate        | マイグレーションを行う                                                  | docker-compose exec app poetry run python manage.py migrate                                |
-| make show_urls      | エンドポイントをターミナル上で一覧表示                                  | docker-compose exec app poetry run python manage.py show_urls                              |
-| make shell          | テストデータの投入                                                      | docker-compose exec app poetry run python manage.py debugsqlshell                          |
-| make superuser      | スーパーユーザの作成                                                    | docker-compose exec app poetry run python manage.py createsuperuser                        |
-| make test           | テストを実行                                                            | docker-compose exec app poetry run pytest                                                  |
-| make test-cov       | カバレッジを表示させた上でテストを実行                                  | docker-compose exec app poetry run pytest --cov                                            |
-| make format         | black と isort を使ってコードを整形                                     | docker-compose exec app poetry run black . <br> docker-compose exec app poetry run isort . |
-| make update         | Poetry 内のパッケージの更新                                             | docker-compose exec app poetry update                                                      |
-| make app            | アプリケーション のコンテナへ入る                                       | docker exec -it app bash                                                                   |
-| make db             | データベースのコンテナへ入る                                            | docker exec -it db bash                                                                    |
-| make pdoc           | pdoc ドキュメントの作成                                                 | docker-compose exec app env CI_MAKING_DOCS=1 poetry run pdoc -o docs application           |
-| make init           | Terraform の初期化                                                      | docker-compose -f infra/docker-compose.yml run --rm terraform init                         |
-| make fmt            | Terraform の設定ファイルをフォーマット                                  | docker-compose -f infra/docker-compose.yml run --rm terraform fmt                          |
-| make validate       | Terraform の構成ファイルが正常であることを確認                          | docker-compose -f infra/docker-compose.yml run --rm terraform validate                     |
-| make show           | 現在のリソースの状態を参照                                              | docker-compose -f infra/docker-compose.yml run --rm terraform show                         |
-| make apply          | Terraform の内容を適用                                                  | docker-compose -f infra/docker-compose.yml run --rm terraform apply                        |
-| make destroy        | Terraform で構成されたリソースを削除                                    | docker-compose -f infra/docker-compose.yml run --rm terraform destroy                      |
+| Make                | 実行する処理                                                            ||                                                                                
+ ------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| docker-compose up -d            | コンテナの起動                                                                     |
+| docker-compose build          | イメージのビルド                                                        | 
+| docker-compose down           | コンテナの停止                                                          | 
 
-### リモートデバッグの方法
-
-リモートデバッグ を使用する際は以下の url を参考に設定してください<br>
-[Django のコンテナへリモートデバッグしよう！](https://qiita.com/shun198/items/9e4fcb4479385217c323)
 
 ## トラブルシューティング
 
