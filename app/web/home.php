@@ -57,15 +57,6 @@ if (isset($_SESSION['uploadError'])) {
         <div id="preview"></div>
     </div>
     <br>
-    <footer>
-        <div class="footer_content">
-            <hr>
-            <a class="footer_content_text1" type="button" onclick="location.href='./carender/carender.php'">　記　録　</a>
-            <a class="footer_content_text1">|</a>
-            <!--ログアウト.phpまだない-->
-            <a class="footer_content_text1" type="button" onclick="location.href='./carender/carender.php'">ログアウト</a>
-        </div>
-    </footer>
 </body>
 
 </html>
